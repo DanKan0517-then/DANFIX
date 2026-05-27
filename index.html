@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="DanFix — Premium Kids Grammar & Spell Checker powered by a compiler pipeline.">
+  <title>DanFix — Compiler Grammar Analyser</title>
+  <link rel="stylesheet" href="/static/css/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐻</text></svg>">
+</head>
+<body>
+
+  <div class="toast-container" id="toast-container"></div>
+
+  <div class="app-wrapper">
+
+    <!-- ── HERO ──────────────────────────────────────────────────── -->
+    <header class="hero-wrapper">
+      <img src="/static/img/bear.png" alt="DanFix Bear Mascot" class="hero-mascot">
+      <div class="hero-text">
+        <h1>DanFix</h1>
+        <p>Compiler-powered Grammar &amp; Spell Checker</p>
+      </div>
+    </header>
+
+    <!-- ── PIPELINE BAR ──────────────────────────────────────────── -->
+    <nav class="pipeline" aria-label="Compiler pipeline stages">
+      <div class="stage" id="stage-lexer">
+        <div class="stage-icon">🔡</div>
+        <div class="stage-name">Lexer</div>
+      </div>
+      <div class="stage-arrow">→</div>
+      <div class="stage" id="stage-parser">
+        <div class="stage-icon">🌳</div>
+        <div class="stage-name">Parser / AST</div>
+      </div>
+      <div class="stage-arrow">→</div>
+      <div class="stage" id="stage-semantic">
+        <div class="stage-icon">🧠</div>
+        <div class="stage-name">Semantic</div>
+      </div>
+      <div class="stage-arrow">→</div>
+      <div class="stage" id="stage-reporter">
+        <div class="stage-icon">📋</div>
+        <div class="stage-name">Reporter</div>
+      </div>
+    </nav>
+
+    <!-- ── MAIN GRID ─────────────────────────────────────────────── -->
+    <div class="main-grid">
+
+      <!-- INPUT CARD -->
+      <div class="card input-panel">
+        <div class="card-header">
+          <div class="card-title">Input Text 📝</div>
+          <button class="btn btn-secondary" id="demo-btn" style="padding:10px 20px;font-size:16px;border-radius:999px;">
+            Load Demo
+          </button>
+        </div>
+        <div class="card-body">
+          <textarea
+            id="input-text"
+            placeholder="Type or paste your text here...&#10;&#10;Example: i is very good at speling."
+            aria-label="Input text for analysis"
+          ></textarea>
+          <div class="char-count" id="char-count">0 / 50,000 chars</div>
+
+          <div class="upload-zone" id="upload-zone" role="button" aria-label="Upload file">
+            <span class="upload-icon">☁️</span>
+            <p>Upload a Document</p>
+            <small>Supports .txt · .pdf · .docx (max 5 MB)</small>
+            <input type="file" id="file-input" accept=".txt,.pdf,.docx" style="display:none;">
+          </div>
+          <div id="file-name-tag" class="file-name-tag" style="display:none;"></div>
+
+          <div class="btn-row">
+            <button class="btn btn-primary" id="analyze-btn">
+              <div class="spinner"></div>
+              <span class="btn-text">🔍 Analyse Text</span>
+            </button>
+            <button class="btn btn-secondary" id="clear-btn">Clear</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- PIPELINE INFO CARD -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">How It Works ⚙️</div>
+        </div>
+        <div class="card-body" style="padding-top:10px;">
+
+          <div class="info-item">
+            <div class="info-icon">1</div>
+            <div class="info-text">
+              <h4>Lexical Analysis</h4>
+              <p>Tokenises input into WORD, NUMBER, PUNCTUATION, SENTENCE_END, and UNKNOWN tokens.</p>
+            </div>
+          </div>
+
+          <div class="info-item">
+            <div class="info-icon">2</div>
+            <div class="info-text">
+              <h4>Syntax Parsing → AST</h4>
+              <p>Groups tokens into a Document → Paragraph → Sentence Abstract Syntax Tree.</p>
+            </div>
+          </div>
+
+          <div class="info-item">
+            <div class="info-icon">3</div>
+            <div class="info-text">
+              <h4>Semantic Analysis</h4>
+              <p>Walks the AST; runs <code>pyspellchecker</code> + <code>LanguageTool</code> to detect violations.</p>
+            </div>
+          </div>
+
+          <div class="info-item">
+            <div class="info-icon">4</div>
+            <div class="info-text">
+              <h4>Error Reporter</h4>
+              <p>Generates annotated output, string-offset corrections, and a full JSON report.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div><!-- /main-grid -->
+
+    <!-- ── RESULTS SECTION ───────────────────────────────────────── -->
+    <div class="card" id="results-card" style="margin-bottom:40px;display:none;">
+      <div class="card-header">
+        <div class="card-title">Analysis Results ✨</div>
+      </div>
+      <div class="card-body" id="output-section"></div>
+    </div>
+
+  </div><!-- /app-wrapper -->
+
+  <script src="/static/js/main.js"></script>
+</body>
+</html>
