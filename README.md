@@ -191,4 +191,6 @@ This project was mainly built to understand compiler design concepts in a practi
 The idea was to treat English text like source code and process it through compiler stages such as lexical analysis, parsing, semantic analysis, and reporting.
 
 ---
+##This is how it looks
+<img width="456" height="547" alt="Screenshot 2026-05-27 at 12 36 25 PM" src="https://github.com/user-attachments/assets/e9a70321-b897-4304-87f8-f66144ef5790" />
 
